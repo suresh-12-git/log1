@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        margin-top: 40px;
+       background-color: cadetblue;
+    }
+    button{
+        height: 40px;
+        width: 130px;
+        background-color: transparent;
+        color: bisque;
+        border: 2px solid wheat;
+    }
+</style>
+<body>
+    <button id="btn">register</button>
+    <button id="btn2">login</button>
+    <h2 id="para"></h2>
+
+
+
+    <script>
+        var arr=[]
+        var btn1=document.getElementById('btn');
+        btn1.addEventListener('click',()=>{
+
+
+            var user=prompt("enter your name");
+            var pass=prompt("enter your password");
+            var cpass=prompt("confirm your password");
+            var mobile=prompt("enter your mobile-number");
+
+            var obj={
+                username:user,
+                password:pass,
+                cpassword:cpass,
+                mobile:mobile
+            }
+            arr.push(obj)
+
+            if(pass==cpass){
+                if(mobile.length==10){
+                    localStorage.setItem("details",JSON.stringify(arr))
+                }
+                else{
+                    // alert("enter 10 digit number")
+                    var head=document.getElementById("para");
+                    head.textContent="enter 10 digit number";
+                    head.style.color="white"
+                
+               
+                }    
+            }
+            else{
+                // alert("password not match")
+                var head=document.getElementById("para");
+                
+                head.textContent="password not match";
+                 head.style.color="white"
+            }
+
+            
+        })
+
+        var arr1=[]
+        var btn1=document.getElementById("btn2");
+        btn1.addEventListener('click',()=>{
+            var user=prompt("enter your name");
+            var pass=prompt("enter your password");
+
+
+            data=localStorage.getItem("details");
+            var d1=JSON.parse(data)
+            console.log(d1)
+
+            for(i=0;i<d1.length;i++){
+                if(d1[i].username==user){
+                    arr1.push(d1[i])
+                }
+            }
+
+            if(arr1.length>0){
+                if(user==arr1[0].username && pass==arr1[0].cpassword){
+                    // alert("login successfull")
+                    var head=document.getElementById("para");
+                
+                head.textContent="welcome "+user+" your login successfull";
+                 head.style.color="white"
+                }
+                else{
+                    alert("invalid user details")
+                }
+            }
+            else{
+                alert("please register")
+            }
+        })
+
+
+    </script>
+</body>
+</html>
